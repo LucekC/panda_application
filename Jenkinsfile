@@ -5,10 +5,12 @@ pipeline{
 
     tools{
         maven "m3"
+        terraform 'Terraform'
     }
     environment{
         IMAGE = readMavenPom().getArtifactId()
         VERSION = readMavenPom().getVersion()
+        ANSIBLE = tool name: 'Ansible', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
     }
     stages{
         stage('Clear running apps'){
@@ -47,6 +49,26 @@ pipeline{
                     // some block
                     sh "mvn -s $mavensettings deploy -Dmaven.test.skip=true -e"
                 }
+            }
+        }
+        stage('Run terraform') {
+            steps {
+                dir('infrastructure/terraform') { 
+                sh 'terraform init && terraform apply -auto-approve'
+                } 
+            }
+        }
+        stage('Copy Ansible role') {
+            steps {
+                sh 'cp -r infrastructure/ansible/panda/ /etc/ansible/roles/'
+            }
+        }
+        stage('Run Ansible') {
+            steps {
+                dir('infrastructure/ansible') { 
+                sh 'chmod 600 ../panda.pem'
+                sh 'ansible-playbook -i ./inventory playbook.yml'
+                } 
             }
         }
 
