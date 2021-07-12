@@ -20,7 +20,7 @@ pipeline{
         }
         stage('Get Code'){
             steps{
-                git branch: 'pipeline', url: 'https://github.com/LucekC/panda_application.git'
+                git branch: 'infrastructure', url: 'https://github.com/LucekC/panda_application.git'
             }
         }
         stage('Build and Junit'){
