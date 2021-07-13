@@ -4,7 +4,6 @@
   apt:
     pkg:
       - python3
-      - python-dev
   connection: local
 - name: install lxml
   command: "pip3 install lxml"
