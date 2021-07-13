@@ -61,6 +61,7 @@ pipeline{
         stage('Copy Ansible role') {
             steps {
                 sh 'cp -r infrastructure/ansible/panda/ /etc/ansible/roles/'
+                sh 'ls -al /etc/ansible/roles/'
             }
         }
         stage('Run Ansible') {
