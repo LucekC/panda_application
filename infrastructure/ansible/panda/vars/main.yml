@@ -1,2 +1,4 @@
 ---
 # vars file for panda
+vars:
+  ansible_python_interpreter: /usr/bin/python3
