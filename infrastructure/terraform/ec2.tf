@@ -17,7 +17,7 @@ resource "aws_instance" "panda" {
   provisioner "remote-exec" {
     inline = [
       "echo \"Hello, World ${self.public_ip}\" > index.html",
-      "nohup busybox httpd -f -p 8080 &",
+      "nohup busybox httpd -f -p 80 &",
       "sleep 1",
     ]
   }
