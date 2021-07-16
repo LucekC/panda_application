@@ -68,7 +68,7 @@ pipeline{
             steps {
                 dir('infrastructure/ansible') { 
                 sh 'chmod 600 ../panda.pem'
-                sh 'ansible-playbook -i ./inventory -e ansible_python_interpreter=auto playbook.yml'
+                sh 'ansible-playbook -i ./inventory playbook.yml'
                 } 
             }
         }
